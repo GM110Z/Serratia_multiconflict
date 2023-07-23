@@ -76,7 +76,10 @@ for d in */
       grep -o 'UserReplicon' defense_finder_systems.tsv| wc -l >> results.tsv
       cat defense_finder_systems.tsv >> results.tsv
       mv defense_finder_systems.tsv ${d}_defense_finder_systems.tsv
-      mv results.tsv  ${VAR6} 
+      echo ${d} >>  python-header.tsv
+      python defense-finder-processing.py
+      mv results.tsv *.csv ${VAR6} 
+      mv *.csv ${VAR6} 
       cd  ${VAR6}
    done
 rm *.idx
