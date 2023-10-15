@@ -13,3 +13,10 @@ for file in ${VAR4}
         done
 
 #conver gb to protein fasta
+VAR4=$(echo *.gb | xargs ls)
+
+for f in ${VAR4}
+   do
+      python gbktofaa.py  ${f}
+   done
+
