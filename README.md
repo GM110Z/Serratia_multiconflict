@@ -1,8 +1,6 @@
 # Serratia_multiconflict
 
-**ATHENIAN: Association wiTH dEfeNce IslANds**: Starting from genomic coordinates of islands of interest, uses bedtools-pyfaidx-eutils to find and extract flanking regions of homologues. 
-Uses helper python script **gbktofaa.py** to convert genbank files to protein fasta, then runs defence-finder on them
-Athenian also runs **defence-finder-processing.py** to process files for gggenes annotations
+**STHENOS: A**: Starting from genomic coordinates of defence system uses bedtools-pyfaidx-eutils to find and extract flanking regions. Uses helper python script **gbktofaa.py** to convert genbank files to protein fasta, then uses mmseqs2 to cluster proteins. 
 
 **DEPENDENCIES**
 Entrez Eutils
@@ -13,6 +11,4 @@ Biopython
 sed
 wget
 Biopython
-Defense-finder
-
 **NOTE**: need gbktofaa.py in the same directory to run
