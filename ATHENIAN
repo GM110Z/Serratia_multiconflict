@@ -26,7 +26,7 @@ awk '{print $1 "\t" $2 "\t" $3 > $1 ".bed"}' Bed_file.tsv
 VAR3=$(echo *.bed | xargs ls)
 for i in ${VAR3}
    do
-      bedtools slop -i ${i} -g chromosome.sizes -b 25000 > ${i}.slop
+      bedtools slop -i ${i} -g chromosome.sizes -b 50000 > ${i}.slop
    done
 cat *.slop >> regions.boundaries
 rm *.bed
@@ -53,35 +53,3 @@ find . -size 0 -exec rm {} \;
 sed -i '' 's/ /_/g' *.fasta
 
 
-echo "Finding anti-phage systems"
-#run defense finder
-VAR5=$(ls *.fasta)
-VAR6=$(pwd)
-for z in ${VAR5}
-   do
-      defense-finder run ${z} -o ${VAR6}/${z}_res
-   done
-
-#sleep 2 seconds
-sleep 2
-
-#combine defensefinder results
-touch results.tsv
-for d in */
-   do
-      echo "(o) I'm in folder : ${d}"
-      mv results.tsv  ${VAR6}/${d}
-      cd  ${VAR6}/${d}
-      echo ${d}_results >> results.tsv
-      grep -o 'UserReplicon' defense_finder_systems.tsv| wc -l >> results.tsv
-      cat defense_finder_systems.tsv >> results.tsv
-      mv defense_finder_systems.tsv ${d}_defense_finder_systems.tsv
-      echo ${d} >>  python-header.tsv
-      python defense-finder-processing.py
-      mv results.tsv *.csv ${VAR6} 
-      mv *.csv ${VAR6} 
-      cd  ${VAR6}
-   done
-rm *.idx
-
-echo 'Done'
